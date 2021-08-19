@@ -17,17 +17,16 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        $products = Produit::orderBy('name')->get();
-        
         $categories = Categorie::orderBy('CategorieName')->get();
 
         $familles = Famille::orderBy('FamilleName')->get();
 
+        $products = Produit::with(['categorie', 'famille', 'option'])->get();
+        
         $unites = Option::where([
             ['unite', true]
         ])->orderBy('name')->get();
         
-
         return view('components.produit', compact('products', 'categories', 'familles', 'unites'));
     }
 
@@ -53,6 +52,12 @@ class ProduitController extends Controller
         
         $request->validate([
             'produit' => 'required|string|min:2|max:255',
+            'description' => 'nullable|string|min:2|max:255',
+            'unite' =>  'nullable|integer',
+            'categorie' => 'nullable|integer',
+            'famille' => 'nullable|integer',
+            'date_production' => 'required|date|before:date_peremption',
+            'date_peremption' => 'required|date|after:date_production'
         ]);
 
         $produit = Produit::create([
