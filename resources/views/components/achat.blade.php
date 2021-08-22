@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
 @endpush
 @section('content')
-    <div class="container p-3 rounded-3" style="background-color: #ffffff">
+    <div class="container p-3 rounded-3" style="background-color: #ffffff; border-radius: 25px">
 
         <div class="row mb-4">
             <div class="col-md-12 col-sm-12 col-xs-12">

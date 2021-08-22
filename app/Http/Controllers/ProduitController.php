@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Categorie;
 use App\Models\Famille;
 use App\Models\Option;
@@ -46,19 +47,10 @@ class ProduitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         
-        $request->validate([
-            'produit' => 'required|string|min:2|max:255',
-            'description' => 'nullable|string|min:2|max:255',
-            'unite' =>  'nullable|integer',
-            'categorie' => 'nullable|integer',
-            'famille' => 'nullable|integer',
-            'date_production' => 'required|date|before:date_peremption',
-            'date_peremption' => 'required|date|after:date_production'
-        ]);
-
+    
         $produit = Produit::create([
             'name' => $request->produit,
             'description' => $request->description,
